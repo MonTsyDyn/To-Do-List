@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Список задач</title>
+  <meta name="description" content="Личная доска задач с тремя статусами.">
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap topbar-inner">
+      <div class="brand"><span aria-hidden="true">✓</span>Список задач</div>
+      <span class="local-note">Только на этом устройстве</span>
+    </div>
+  </header>
+  <main class="wrap">
+    <div class="intro">
+      <div>
+        <h1>Мои задачи</h1>
+        <p class="desktop-hint">Перетаскивайте карточки между столбцами, чтобы менять статус.</p>
+        <p class="mobile-hint">Меняйте статус задачи через меню карточки.</p>
+      </div>
+      <button class="primary new-task" type="button" aria-controls="composer" aria-expanded="false">
+        <span aria-hidden="true">+</span> Новая задача
+      </button>
+    </div>
+    <div class="progress">
+      <label for="progress">Выполнено</label>
+      <progress id="progress" max="1" value="0"></progress>
+      <span id="total">0 из 0 задач</span>
+    </div>
+    <div class="board">
+      <section class="column" data-status="todo" aria-labelledby="todo-heading">
+        <div class="column-heading"><h2 id="todo-heading">К выполнению</h2><span class="count" aria-hidden="true">0</span></div>
+        <form id="composer" hidden>
+          <div class="form-heading"><strong>Новая задача</strong><button class="icon cancel" type="button" aria-label="Закрыть форму">×</button></div>
+          <label for="task-title">Название задачи</label>
+          <input id="task-title" name="title" required maxlength="160" autocomplete="off">
+          <div class="form-actions">
+            <button class="secondary cancel" type="button">Отмена</button>
+            <button class="primary" type="submit">Добавить</button>
+          </div>
+        </form>
+        <ul class="cards"></ul>
+        <p class="empty">Добавьте первую задачу кнопкой «Новая задача».</p>
+      </section>
+      <section class="column" data-status="doing" aria-labelledby="doing-heading">
+        <div class="column-heading"><h2 id="doing-heading">В работе</h2><span class="count" aria-hidden="true">0</span></div>
+        <ul class="cards"></ul>
+        <p class="empty">Пока нет задач в работе.</p>
+      </section>
+      <section class="column" data-status="done" aria-labelledby="done-heading">
+        <div class="column-heading"><h2 id="done-heading">Готово</h2><span class="count" aria-hidden="true">0</span></div>
+        <ul class="cards"></ul>
+        <p class="empty">Здесь появятся выполненные задачи.</p>
+      </section>
+    </div>
+    <footer id="storage-note">Изменения сохраняются автоматически в этом браузере.</footer>
+  </main>
+  <div class="toast" hidden>
+    <span role="status"></span>
+    <button class="undo" type="button">Отменить</button>
+  </div>
+  <template id="task">
+    <li class="card" draggable="true">
+      <span class="grip" aria-hidden="true"></span>
+      <label class="check"><input type="checkbox"><span></span></label>
+      <span class="task-title"></span>
+      <button class="icon options" type="button" aria-expanded="false">⋯</button>
+      <div class="card-menu" hidden>
+        <div class="menu-label">Переместить в</div>
+        <button class="menu-move" data-move="todo" type="button">К выполнению</button>
+        <button class="menu-move" data-move="doing" type="button">В работе</button>
+        <button class="menu-move" data-move="done" type="button">Готово</button>
+        <button class="delete" type="button">Удалить задачу</button>
+      </div>
+    </li>
+  </template>
+</body>
+</html>
